@@ -1,0 +1,85 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: light;
+
+  /* LibraryOS brand tokens — see tailwind.config.js for the full scales these
+     are drawn from. Kept as CSS variables too for contexts that need a raw
+     hex string (inline SVG/Recharts fills, box-shadow colors, etc.). */
+  --brand-dark: #101820;
+  --brand-orange: #F2AA4C;
+
+  --background: #F7F5F1;
+  --surface: #FCFBF8;
+  --surface-secondary: #F3F0EA;
+
+  --text-primary: #101820;
+  --text-secondary: #3C4854;
+  --text-tertiary: #66717B;
+  --text-muted: #8C969F;
+
+  --border: #E5E0D7;
+  --border-subtle: #EDE9E2;
+
+  --primary: #F2AA4C;
+  --primary-hover: #E9952E;
+  --primary-active: #D97C17;
+  --primary-soft: #FFF4E4;
+
+  --success: #2D9D69;
+  --success-bg: #EAF6EF;
+  --warning: #C98516;
+  --warning-bg: #FFF6E4;
+  --danger: #D94B4B;
+  --danger-bg: #FCECEC;
+  --info: #3978B8;
+  --info-bg: #EDF5FC;
+
+  --chart-primary: #F2AA4C;
+  --chart-secondary: #273440;
+  --chart-success: #2D9D69;
+  --chart-danger: #D94B4B;
+  --chart-info: #3978B8;
+  --chart-neutral: #A8B0B7;
+  --chart-grid: #E8E3DB;
+}
+
+html, body, #root {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  background-color: var(--background);
+  color: var(--text-primary);
+}
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #D5CEC2 transparent;
+}
+
+@media print {
+  .no-print {
+    display: none !important;
+  }
+  body * {
+    visibility: hidden;
+  }
+  #receipt-print,
+  #receipt-print * {
+    visibility: visible;
+  }
+  #receipt-print {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    border: none !important;
+  }
+}
