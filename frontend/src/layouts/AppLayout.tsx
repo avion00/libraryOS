@@ -38,7 +38,7 @@ export default function AppLayout() {
   const { user, logout } = useAuth();
   const navigate = useNavigate();
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [userMenuOpen, setUserMenuOpen] = useState(false);
+  // const [userMenuOpen, setUserMenuOpen] = useState(false);
   const userMenuRef = useRef<HTMLDivElement>(null);
 
   async function handleLogout() {
@@ -101,7 +101,7 @@ export default function AppLayout() {
         <SidebarPromoCard />
 
         <div className="border-t border-white/10 p-3">
-          <div className="relative" ref={userMenuRef}>
+          {/* <div className="relative" ref={userMenuRef}>
             <button
               onClick={() => setUserMenuOpen((v) => !v)}
               className="flex w-full items-center gap-2.5 rounded-lg px-2 py-2 text-left hover:bg-white/5"
@@ -113,27 +113,14 @@ export default function AppLayout() {
                 <span className="block truncate text-sm font-semibold text-white">{user?.username}</span>
                 <span className="block text-xs text-ink-200">{roleLabel}</span>
               </span>
-              <ChevronDown className={clsx("h-4 w-4 shrink-0 text-ink-200 transition-transform", userMenuOpen && "rotate-180")} />
             </button>
-            {userMenuOpen && (
-              <div className="absolute bottom-12 left-0 z-20 w-full rounded-xl border border-paper-700 bg-white p-1.5 shadow-card-hover">
-                <button
-                  onClick={() => {
-                    setUserMenuOpen(false);
-                    navigate("/settings");
-                  }}
-                  className="flex w-full items-center gap-2 rounded-lg px-2.5 py-2 text-sm text-slate-600 hover:bg-paper-300"
-                >
-                  <Settings className="h-4 w-4" strokeWidth={2} /> Settings
-                </button>
-              </div>
-            )}
-          </div>
+           
+          </div> */}
           <button
             onClick={handleLogout}
-            className="mt-1.5 flex w-full items-center gap-2.5 rounded-lg px-3 py-2 text-sm font-medium text-ink-100 transition-colors hover:bg-red-500/10 hover:text-red-400"
+            className="mt-1.5 flex w-full items-center gap-2.5 rounded-lg px-3 py-3 text-sm font-medium text-ink-100 transition-colors hover:bg-red-500/10 hover:text-red-400"
           >
-            <LogOut className="h-4 w-4" strokeWidth={2} />
+            <LogOut className="h-4 w-4 ml-2 mr-1" strokeWidth={2} />
             Log out
           </button>
         </div>
