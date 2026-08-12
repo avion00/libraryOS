@@ -80,7 +80,7 @@ export default function AppLayout() {
               onClick={() => setMobileOpen(false)}
               className={({ isActive }) =>
                 clsx(
-                  "relative flex items-center gap-3 rounded-[9px] px-3 py-2.5 text-[14.5px] font-medium transition-colors",
+                  "relative flex items-center gap-3 rounded-[9px] px-3 py-2.5 text-sm font-medium transition-colors",
                   isActive ? "bg-brand-400/[0.12] text-brand-400" : "text-ink-50 hover:bg-white/5"
                 )
               }
