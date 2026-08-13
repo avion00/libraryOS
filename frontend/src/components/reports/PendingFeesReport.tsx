@@ -2,7 +2,8 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { Download, IndianRupee, Info, MoreVertical, TrendingUp, Users } from "lucide-react";
 import { reportsApi } from "../../api/endpoints";
-import { ErrorState, PageLoading } from "../ui";
+import { ErrorState } from "../ui";
+import { ReportsSkeleton } from "../skeletons/ReportsSkeleton";
 import { StudentStatCard } from "../students/StudentStatCard";
 import { ReportDonutCard, type DonutSegment } from "./charts/ReportDonutCard";
 import { PendingFeesTable } from "./tables/PendingFeesTable";
@@ -57,18 +58,18 @@ export function PendingFeesReport() {
     setMenuOpen(false);
   }
 
-  if (isLoading) return <PageLoading />;
+  if (isLoading) return <ReportsSkeleton statCount={3} gridClassName="grid-cols-1 gap-3 sm:grid-cols-3" main="table" />;
   if (error || !data) return <ErrorState message="Unable to load the pending fees report." onRetry={() => refetch()} />;
 
   const avgDue = data.count > 0 ? data.total_due / data.count : 0;
   const segments: DonutSegment[] = buckets.map((b) => ({ key: b.label, label: b.label, value: b.total, color: b.color, displayValue: formatMoney(b.total) }));
 
   return (
-    <div className="flex flex-col gap-4">
+    <div className="flex animate-fadeIn flex-col gap-4">
       <div className="grid grid-cols-1 gap-3 sm:grid-cols-3">
-        <StudentStatCard icon={Users} iconBg="bg-paper-700" iconColor="text-ink-700" title="Students With Dues" value={String(data.count)} footer="students" />
+        <StudentStatCard icon={Users} iconBg="bg-slate-100" iconColor="text-slate-600" title="Students With Dues" value={String(data.count)} footer="students" />
         <StudentStatCard icon={IndianRupee} iconBg="bg-emerald-100" iconColor="text-emerald-600" title="Total Pending" value={formatMoney(data.total_due)} footer="total amount" />
-        <StudentStatCard icon={TrendingUp} iconBg="bg-paper-700" iconColor="text-ink-700" title="Average Due" value={formatMoney(avgDue)} footer="per student" />
+        <StudentStatCard icon={TrendingUp} iconBg="bg-slate-100" iconColor="text-slate-600" title="Average Due" value={formatMoney(avgDue)} footer="per student" />
       </div>
 
       <div className="flex flex-col gap-4 lg:flex-row lg:items-start">

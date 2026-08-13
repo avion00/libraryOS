@@ -43,8 +43,8 @@ export function PaymentsSummary({
       />
       <StudentStatCard
         icon={CreditCard}
-        iconBg="bg-paper-700"
-        iconColor="text-ink-700"
+        iconBg="bg-slate-100"
+        iconColor="text-slate-600"
         title="Paid Amount"
         value={formatMoney(paidThisMonth)}
         footer={`${paidPct.toFixed(1)}% of total`}
@@ -59,8 +59,8 @@ export function PaymentsSummary({
       />
       <StudentStatCard
         icon={ReceiptText}
-        iconBg="bg-paper-700"
-        iconColor="text-ink-700"
+        iconBg="bg-slate-100"
+        iconColor="text-slate-600"
         title="Total Payments"
         value={String(countThisMonth)}
         footer="This month"

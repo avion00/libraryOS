@@ -1,7 +1,7 @@
 import { SettingsSectionHeader } from "./SettingsSectionHeader";
 import { SettingField, settingInputClass } from "./SettingField";
 import { AccentColorPicker } from "./AccentColorPicker";
-import { ThemeSelector, type ThemePreference } from "./ThemeSelector";
+import { ThemeSelector } from "./ThemeSelector";
 import type { SettingsFormValues } from "./types";
 
 const TIMEZONES = ["UTC", "Asia/Kolkata", "Asia/Dubai", "Asia/Singapore", "Asia/Karachi", "Asia/Dhaka", "Europe/London", "America/New_York", "America/Los_Angeles"];
@@ -15,8 +15,6 @@ export function PreferenceSettings({
   onChange,
   accentColor,
   onAccentColorChange,
-  theme,
-  onThemeChange,
   density,
   onDensityChange,
 }: {
@@ -24,8 +22,6 @@ export function PreferenceSettings({
   onChange: <K extends keyof SettingsFormValues>(key: K, value: SettingsFormValues[K]) => void;
   accentColor: string;
   onAccentColorChange: (key: string) => void;
-  theme: ThemePreference;
-  onThemeChange: (v: ThemePreference) => void;
   density: "comfortable" | "compact";
   onDensityChange: (v: "comfortable" | "compact") => void;
 }) {
@@ -35,7 +31,7 @@ export function PreferenceSettings({
 
       <GroupTitle>Appearance</GroupTitle>
       <div className="space-y-4">
-        <ThemeSelector value={theme} onChange={onThemeChange} />
+        <ThemeSelector />
         <AccentColorPicker value={accentColor} onChange={onAccentColorChange} />
 
         <div>

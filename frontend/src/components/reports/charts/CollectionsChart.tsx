@@ -65,7 +65,16 @@ export function CollectionsChart({ data }: { data: DailyPoint[] }) {
               <Tooltip
                 labelFormatter={(v) => formatDate(v as string)}
                 formatter={(value, name) => (name === "amount" ? [formatMoney(Number(value)), "Amount"] : [value, "Transactions"])}
-                contentStyle={{ borderRadius: 10, border: "1px solid #e2e8f0", fontSize: 12, boxShadow: "0 4px 14px rgba(15,23,42,0.08)" }}
+                contentStyle={{
+                  borderRadius: 10,
+                  border: "1px solid var(--border)",
+                  backgroundColor: "var(--surface)",
+                  color: "var(--text-primary)",
+                  fontSize: 12,
+                  boxShadow: "0 4px 14px rgba(15,23,42,0.08)",
+                }}
+                labelStyle={{ color: "var(--text-secondary)" }}
+                itemStyle={{ color: "var(--text-primary)" }}
               />
               {chartType === "bar" ? (
                 <Bar yAxisId="amount" dataKey="amount" fill="var(--chart-primary)" radius={[4, 4, 0, 0]} maxBarSize={28} />

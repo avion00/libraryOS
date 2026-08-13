@@ -1,7 +1,8 @@
 import { useQuery } from "@tanstack/react-query";
 import { Armchair, GraduationCap, IndianRupee, PieChart, ReceiptText, WalletCards } from "lucide-react";
 import { dashboardApi, reportsApi } from "../api/endpoints";
-import { ErrorState, PageLoading } from "../components/ui";
+import { ErrorState } from "../components/ui";
+import { DashboardSkeleton } from "../components/skeletons/DashboardSkeleton";
 import { WelcomeBanner } from "../components/dashboard/WelcomeBanner";
 import { StatCard } from "../components/dashboard/StatCard";
 import { SeatOccupancyCard } from "../components/dashboard/SeatOccupancyCard";
@@ -36,13 +37,13 @@ export default function DashboardPage() {
     queryFn: () => reportsApi.collections({ range: "month" }).then((r) => r.data as CollectionsSummary),
   });
 
-  if (isLoading) return <PageLoading />;
+  if (isLoading) return <DashboardSkeleton />;
   if (error || !data) return <ErrorState message="Could not load the dashboard." onRetry={() => refetch()} />;
 
   const sym = data.currency_symbol;
 
   return (
-    <div className="flex flex-col gap-4">
+    <div className="flex animate-fadeIn flex-col gap-4">
       <WelcomeBanner username={user?.username ?? "admin"} />
 
       <div className="grid grid-cols-2 gap-3 sm:grid-cols-4 xl:grid-cols-8">
@@ -72,8 +73,8 @@ export default function DashboardPage() {
         />
         <StatCard
           icon={PieChart}
-          iconBg="bg-paper-700"
-          iconColor="text-ink-700"
+          iconBg="bg-slate-100"
+          iconColor="text-slate-600"
           label="Shift-Slot Occupancy"
           value={`${data.shift_slots.occupancy_percentage}%`}
           hint={`${data.shift_slots.occupied}/${data.shift_slots.total} slots booked`}
@@ -95,8 +96,8 @@ export default function DashboardPage() {
         />
         <StatCard
           icon={WalletCards}
-          iconBg="bg-paper-700"
-          iconColor="text-ink-700"
+          iconBg="bg-slate-100"
+          iconColor="text-slate-600"
           label="This Month's Collections"
           value={formatMoney(data.collections.this_month, sym)}
           hint={monthCollections ? `${monthCollections.payment_count} payments` : undefined}

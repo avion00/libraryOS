@@ -35,7 +35,16 @@ export function ActivityChartCard({ data, currencySymbol }: { data: MonthlyPayme
               <Tooltip
                 cursor={{ fill: "var(--chart-grid)" }}
                 formatter={(v) => [formatMoney(Number(v), currencySymbol), "Collected"]}
-                contentStyle={{ borderRadius: 10, border: "1px solid #E5E0D7", fontSize: 12, boxShadow: "0 4px 14px rgba(16,24,32,0.08)" }}
+                contentStyle={{
+                  borderRadius: 10,
+                  border: "1px solid var(--border)",
+                  backgroundColor: "var(--surface)",
+                  color: "var(--text-primary)",
+                  fontSize: 12,
+                  boxShadow: "0 4px 14px rgba(16,24,32,0.08)",
+                }}
+                labelStyle={{ color: "var(--text-secondary)" }}
+                itemStyle={{ color: "var(--text-primary)" }}
               />
               <Bar dataKey="amount" fill="var(--chart-primary)" radius={[4, 4, 0, 0]} maxBarSize={32} isAnimationActive animationDuration={700} />
             </BarChart>

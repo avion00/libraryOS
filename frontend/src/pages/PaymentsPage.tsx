@@ -4,7 +4,8 @@ import { paymentsApi, reportsApi } from "../api/endpoints";
 import { api, extractErrorMessage } from "../api/client";
 import { useDebounce } from "../lib/useDebounce";
 import { useToast } from "../context/ToastContext";
-import { ErrorState, PageLoading } from "../components/ui";
+import { ErrorState } from "../components/ui";
+import { PaymentsSkeleton } from "../components/skeletons/PaymentsSkeleton";
 import type { Payment, PaymentMethod } from "../api/types";
 import type { PendingFeesReport } from "../components/students/types";
 
@@ -151,11 +152,11 @@ export default function PaymentsPage() {
       <PaymentsHeader onExport={handleExportCsv} exporting={exporting} />
 
       {loading ? (
-        <PageLoading />
+        <PaymentsSkeleton />
       ) : failed ? (
         <ErrorState message="Unable to load payments." onRetry={() => { allPaymentsQuery.refetch(); tableQuery.refetch(); }} />
       ) : (
-        <>
+        <div className="contents animate-fadeIn">
           <PaymentsSummary
             totalThisMonth={summary.totalThisMonth}
             trendPct={summary.trendPct}
@@ -203,7 +204,7 @@ export default function PaymentsPage() {
               trendData={summary.trendData}
             />
           </div>
-        </>
+        </div>
       )}
 
       <ReceiptDialog open={!!selectedPayment} onClose={() => setSelectedPayment(null)} payment={selectedPayment} />

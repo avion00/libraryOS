@@ -5,7 +5,8 @@ import { Plus } from "lucide-react";
 import { seatsApi, shiftsApi } from "../api/endpoints";
 import { extractErrorMessage } from "../api/client";
 import { useToast } from "../context/ToastContext";
-import { Button, ConfirmDialog, ErrorState, PageLoading } from "../components/ui";
+import { Button, ConfirmDialog, ErrorState } from "../components/ui";
+import { SeatsSkeleton } from "../components/skeletons/SeatsSkeleton";
 import type { Shift, SeatMapEntry } from "../api/types";
 
 import { SeatsTabs } from "../components/seats/SeatsTabs";
@@ -135,11 +136,11 @@ export default function SeatsPage() {
       </div>
 
       {loading ? (
-        <PageLoading />
+        <SeatsSkeleton />
       ) : failed ? (
         <ErrorState message="Could not load seat data." onRetry={() => { seatMapQuery.refetch(); shiftsQuery.refetch(); }} />
       ) : (
-        <>
+        <div className="contents animate-fadeIn">
           {tab === "map" ? (
             <SeatMapStats total={entries.length} available={counts.available} partial={counts.partial} full={counts.full} />
           ) : (
@@ -206,7 +207,7 @@ export default function SeatsPage() {
               )}
             </div>
           </div>
-        </>
+        </div>
       )}
 
       <SeatDetailsDialog

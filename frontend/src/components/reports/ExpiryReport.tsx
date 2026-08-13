@@ -2,7 +2,8 @@ import { useMemo, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { CalendarDays, Clock3 } from "lucide-react";
 import { reportsApi } from "../../api/endpoints";
-import { ErrorState, PageLoading } from "../ui";
+import { ErrorState } from "../ui";
+import { ReportsSkeleton } from "../skeletons/ReportsSkeleton";
 import { StudentStatCard } from "../students/StudentStatCard";
 import { ExpiryFilterBar } from "./ExpiryFilterBar";
 import { ExpiryTable } from "./tables/ExpiryTable";
@@ -69,11 +70,11 @@ export function ExpiryReport() {
     );
   }
 
-  if (expiryQuery.isLoading) return <PageLoading />;
+  if (expiryQuery.isLoading) return <ReportsSkeleton statCount={3} gridClassName="grid-cols-1 gap-3 sm:grid-cols-3" main="table" />;
   if (expiryQuery.error || !expiryQuery.data) return <ErrorState message="Unable to load the expiry report." onRetry={() => expiryQuery.refetch()} />;
 
   return (
-    <div className="flex flex-col gap-4">
+    <div className="flex animate-fadeIn flex-col gap-4">
       <ExpiryFilterBar
         days={days}
         onDaysChange={(d) => {
@@ -85,7 +86,7 @@ export function ExpiryReport() {
       <div className="grid grid-cols-1 gap-3 sm:grid-cols-3">
         <StudentStatCard icon={CalendarDays} iconBg="bg-emerald-100" iconColor="text-emerald-600" title="Expiring in 7 Days" value={String(expiry7Query.data?.count ?? "—")} footer="memberships" />
         <StudentStatCard icon={CalendarDays} iconBg="bg-orange-100" iconColor="text-orange-600" title="Expiring in 30 Days" value={String(expiry30Query.data?.count ?? "—")} footer="memberships" />
-        <StudentStatCard icon={Clock3} iconBg="bg-paper-700" iconColor="text-ink-700" title="Average Days Remaining" value={String(avgDaysRemaining)} footer="days" />
+        <StudentStatCard icon={Clock3} iconBg="bg-slate-100" iconColor="text-slate-600" title="Average Days Remaining" value={String(avgDaysRemaining)} footer="days" />
       </div>
 
       <div className="flex flex-col gap-4 lg:flex-row lg:items-start">

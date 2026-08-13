@@ -14,7 +14,7 @@ export function SettingsActionBar({
   onSave: () => void;
 }) {
   return (
-    <div className="sticky bottom-0 z-10 -mx-4 flex flex-wrap items-center justify-between gap-3 border-t border-paper-700 bg-white/95 px-4 py-3.5 backdrop-blur sm:-mx-6 sm:px-6">
+    <div className="fixed inset-x-0 bottom-0 z-20 flex flex-wrap items-center justify-between gap-3 border-t border-paper-700 bg-white/95 px-4 py-3.5 backdrop-blur sm:px-6 lg:left-64">
       <span className="text-[12.5px] font-medium text-amber-600">{dirty && "Unsaved changes"}</span>
       <div className="ml-auto flex items-center gap-2.5">
         <button

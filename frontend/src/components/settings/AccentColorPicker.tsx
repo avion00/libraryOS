@@ -16,7 +16,7 @@ export function AccentColorPicker({ value, onChange }: { value: string; onChange
             className="relative flex h-8 w-8 items-center justify-center rounded-full ring-offset-2 transition-shadow focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-400"
             style={{ backgroundColor: c.hex, boxShadow: value === c.key ? `0 0 0 2px white, 0 0 0 4px ${c.hex}` : undefined }}
           >
-            {value === c.key && <Check className="h-4 w-4 text-white" strokeWidth={3} />}
+            {value === c.key && <Check className="h-4 w-4 text-[#fff]" strokeWidth={3} />}
           </button>
         ))}
         <span className="flex h-8 w-8 items-center justify-center rounded-full border border-dashed border-slate-300 text-slate-300">

@@ -3,7 +3,8 @@ import { useQuery } from "@tanstack/react-query";
 import { Link } from "react-router-dom";
 import { ArrowRight, Clock3, DoorOpen, TrendingUp, UserRoundX, Users } from "lucide-react";
 import { reportsApi, studentsApi, paymentsApi } from "../../api/endpoints";
-import { ErrorState, PageLoading } from "../ui";
+import { ErrorState } from "../ui";
+import { ReportsSkeleton } from "../skeletons/ReportsSkeleton";
 import { StudentStatCard } from "../students/StudentStatCard";
 import { ReportDonutCard, type DonutSegment } from "./charts/ReportDonutCard";
 import { StudentsReportTable } from "./tables/StudentsReportTable";
@@ -47,7 +48,8 @@ export function StudentsReport() {
   const students = studentsQuery.data ?? [];
   const pageRows = useMemo(() => students.slice((page - 1) * pageSize, page * pageSize), [students, page]);
 
-  if (summaryQuery.isLoading || studentsQuery.isLoading) return <PageLoading />;
+  if (summaryQuery.isLoading || studentsQuery.isLoading)
+    return <ReportsSkeleton statCount={5} gridClassName="grid-cols-2 gap-3 lg:grid-cols-5" main="table" />;
   if (summaryQuery.error || !summaryQuery.data || studentsQuery.error)
     return <ErrorState message="Unable to load the student report." onRetry={() => { summaryQuery.refetch(); studentsQuery.refetch(); }} />;
 
@@ -61,12 +63,12 @@ export function StudentsReport() {
   const activeRate = s.total_students > 0 ? Math.round((s.active / s.total_students) * 1000) / 10 : 0;
 
   return (
-    <div className="flex flex-col gap-4">
+    <div className="flex animate-fadeIn flex-col gap-4">
       <div className="grid grid-cols-2 gap-3 lg:grid-cols-5">
-        <StudentStatCard icon={Users} iconBg="bg-paper-700" iconColor="text-ink-700" title="Total Students" value={String(s.total_students)} footer="All students" />
+        <StudentStatCard icon={Users} iconBg="bg-slate-100" iconColor="text-slate-600" title="Total Students" value={String(s.total_students)} footer="All students" />
         <StudentStatCard icon={TrendingUp} iconBg="bg-emerald-100" iconColor="text-emerald-600" title="Active" value={String(s.active)} footer="Currently active" />
         <StudentStatCard icon={Clock3} iconBg="bg-red-100" iconColor="text-red-600" title="Expired" value={String(s.expired)} footer="Needs renewal" />
-        <StudentStatCard icon={DoorOpen} iconBg="bg-paper-700" iconColor="text-ink-700" title="Vacated" value={String(s.vacated)} footer="Seat freed" />
+        <StudentStatCard icon={DoorOpen} iconBg="bg-slate-100" iconColor="text-slate-600" title="Vacated" value={String(s.vacated)} footer="Seat freed" />
         <StudentStatCard icon={UserRoundX} iconBg="bg-paper-500" iconColor="text-slate-500" title="Never Booked" value={String(s.never_booked)} footer="No membership yet" />
       </div>
 

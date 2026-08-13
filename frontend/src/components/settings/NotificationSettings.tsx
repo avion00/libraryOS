@@ -42,16 +42,16 @@ export function NotificationSettings({
         />
         <SettingsRow
           icon={CalendarClock}
-          iconBg="bg-paper-700"
-          iconColor="text-ink-700"
+          iconBg="bg-slate-100"
+          iconColor="text-slate-600"
           title="Membership expiry reminders"
           description="Alert before membership expires."
           trailing={<Switch checked={values.notify_expiry} onChange={(v) => onChange("notify_expiry", v)} label="Membership expiry reminders" />}
         />
         <SettingsRow
           icon={ChartNoAxesCombined}
-          iconBg="bg-paper-700"
-          iconColor="text-ink-700"
+          iconBg="bg-slate-100"
+          iconColor="text-slate-600"
           title="Daily summary"
           description="Receive a daily activity summary email."
           trailing={<Switch checked={values.notify_daily_summary} onChange={(v) => onChange("notify_daily_summary", v)} label="Daily summary" />}

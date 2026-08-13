@@ -25,8 +25,8 @@ export function SecuritySettings({ onOpenAudit }: { onOpenAudit: () => void }) {
         />
         <SettingsRow
           icon={KeyRound}
-          iconBg="bg-paper-700"
-          iconColor="text-ink-700"
+          iconBg="bg-slate-100"
+          iconColor="text-slate-600"
           title="Password"
           description="Update your admin account password."
           trailing={<span className="text-[12.5px] font-semibold text-brand-600">Change password</span>}
@@ -43,8 +43,8 @@ export function SecuritySettings({ onOpenAudit }: { onOpenAudit: () => void }) {
         />
         <SettingsRow
           icon={History}
-          iconBg="bg-paper-700"
-          iconColor="text-ink-700"
+          iconBg="bg-slate-100"
+          iconColor="text-slate-600"
           title="Audit access"
           description="Review recent administrator activity."
           trailing={<span className="text-[12.5px] font-semibold text-brand-600">Review logs</span>}

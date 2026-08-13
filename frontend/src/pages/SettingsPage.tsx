@@ -4,7 +4,8 @@ import { useSearchParams } from "react-router-dom";
 import { settingsApi } from "../api/endpoints";
 import { extractErrorMessage } from "../api/client";
 import { useToast } from "../context/ToastContext";
-import { ConfirmDialog, ErrorState, PageLoading } from "../components/ui";
+import { ConfirmDialog, ErrorState } from "../components/ui";
+import { SettingsSkeleton } from "../components/skeletons/SettingsSkeleton";
 
 import { SettingsSidebar } from "../components/settings/SettingsSidebar";
 import { ProfileLibrarySettings } from "../components/settings/ProfileLibrarySettings";
@@ -17,7 +18,6 @@ import { BackupSettings } from "../components/settings/BackupSettings";
 import { PreferenceSettings } from "../components/settings/PreferenceSettings";
 import { AuditLogSettings } from "../components/settings/AuditLogSettings";
 import { SettingsActionBar } from "../components/settings/SettingsActionBar";
-import type { ThemePreference } from "../components/settings/ThemeSelector";
 import { DEFAULT_FORM_VALUES, toFormValues, validateForm, type SettingsFormValues, type SettingsSection } from "../components/settings/types";
 
 const VALID_SECTIONS: SettingsSection[] = ["profile", "membership", "billing", "notifications", "security", "integrations", "backup", "preferences", "audit"];
@@ -82,7 +82,6 @@ export default function SettingsPage() {
   const [logoFile, setLogoFile] = useState<File | null>(null);
   const [logoPreview, setLogoPreview] = useState<string | null>(null);
   const [accentColor, setAccentColor] = useState("orange");
-  const [theme, setTheme] = useState<ThemePreference>("light");
   const [density, setDensity] = useState<"comfortable" | "compact">("comfortable");
   const [isEditingProfile, setIsEditingProfile] = useState(false);
   const [resetConfirmOpen, setResetConfirmOpen] = useState(false);
@@ -154,17 +153,17 @@ export default function SettingsPage() {
     setResetConfirmOpen(false);
   }
 
-  if (isLoading || !draft) return <PageLoading />;
+  if (isLoading || !draft) return <SettingsSkeleton />;
   if (error || !data) return <ErrorState message="Unable to load settings." onRetry={() => refetch()} />;
 
   return (
-    <div className="flex flex-1 flex-col gap-4">
+    <div className="flex animate-fadeIn flex-col gap-4">
       <div>
         <h1 className="text-[28px] font-bold leading-tight text-slate-900">Settings</h1>
         <p className="mt-1 text-[14px] text-slate-500">Manage your library preferences, configurations and system settings.</p>
       </div>
 
-      <div className="flex flex-col gap-4 lg:flex-row lg:items-start">
+      <div className="flex flex-col gap-4 pb-28 lg:flex-row lg:items-start">
         <SettingsSidebar section={section} onChange={setSection} />
 
         <div className="min-w-0 flex-1">
@@ -192,8 +191,6 @@ export default function SettingsPage() {
               onChange={set}
               accentColor={accentColor}
               onAccentColorChange={setAccentColor}
-              theme={theme}
-              onThemeChange={setTheme}
               density={density}
               onDensityChange={setDensity}
             />

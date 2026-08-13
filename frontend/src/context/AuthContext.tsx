@@ -6,7 +6,7 @@ import type { AdminUser } from "../api/types";
 interface AuthContextValue {
   user: AdminUser | null;
   loading: boolean;
-  login: (username: string, password: string) => Promise<void>;
+  login: (username: string, password: string, remember?: boolean) => Promise<void>;
   logout: () => Promise<void>;
 }
 
@@ -32,9 +32,9 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       .finally(() => setLoading(false));
   }, []);
 
-  async function login(username: string, password: string) {
+  async function login(username: string, password: string, remember = true) {
     const resp = await authApi.login(username, password);
-    tokenStore.set(resp.data.access, resp.data.refresh);
+    tokenStore.set(resp.data.access, resp.data.refresh, remember);
     setUser(resp.data.user);
   }
 

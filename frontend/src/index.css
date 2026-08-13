@@ -46,6 +46,176 @@
   --chart-info: #3978B8;
   --chart-neutral: #A8B0B7;
   --chart-grid: #E8E3DB;
+
+  --scrollbar-thumb: #D5CEC2;
+
+  /* Theme-adaptive Tailwind color scales, as "R G B" triplets so utilities
+     like bg-paper-300/60 can still apply an alpha channel on top
+     (see tailwind.config.js: rgb(var(--color-x) / <alpha-value>)).
+     Light-mode values below match the original hex scales exactly, so
+     nothing changes visually until `.dark` is applied to <html>. */
+  --color-white: 252 251 248;
+
+  --color-orange-50: 255 248 238;
+  --color-orange-100: 253 239 217;
+
+  --color-paper-50: 255 253 249;
+  --color-paper-100: 252 251 248;
+  --color-paper-200: 249 247 243;
+  --color-paper-300: 247 245 241;
+  --color-paper-400: 243 240 234;
+  --color-paper-500: 242 238 230;
+  --color-paper-600: 237 233 226;
+  --color-paper-700: 229 224 215;
+  --color-paper-800: 213 206 194;
+
+  --color-slate-50: 248 250 252;
+  --color-slate-100: 241 245 249;
+  --color-slate-200: 226 232 240;
+  --color-slate-300: 203 213 225;
+  --color-slate-400: 148 163 184;
+  --color-slate-500: 100 116 139;
+  --color-slate-600: 71 85 105;
+  --color-slate-700: 51 65 85;
+  --color-slate-800: 30 41 59;
+  --color-slate-900: 15 23 42;
+  --color-slate-950: 2 6 23;
+
+  --color-emerald-50: 236 253 245;
+  --color-emerald-100: 209 250 229;
+  --color-emerald-500: 16 185 129;
+  --color-emerald-600: 5 150 105;
+  --color-emerald-700: 4 120 87;
+
+  --color-amber-50: 255 251 235;
+  --color-amber-100: 254 243 199;
+  --color-amber-300: 252 211 77;
+  --color-amber-500: 245 158 11;
+  --color-amber-600: 217 119 6;
+  --color-amber-700: 180 83 9;
+  --color-amber-800: 146 64 14;
+
+  --color-red-50: 254 242 242;
+  --color-red-100: 254 226 226;
+  --color-red-200: 254 202 202;
+  --color-red-300: 252 165 165;
+  --color-red-400: 248 113 113;
+  --color-red-500: 239 68 68;
+  --color-red-600: 220 38 38;
+  --color-red-700: 185 28 28;
+
+  --color-rose-50: 255 241 242;
+  --color-rose-100: 255 228 230;
+  --color-rose-500: 244 63 94;
+  --color-rose-600: 225 29 72;
+  --color-rose-700: 190 18 60;
+
+  --color-info-50: 237 245 252;
+  --color-info-400: 91 147 199;
+  --color-info-600: 57 120 184;
+  --color-info-700: 46 95 147;
+}
+
+:root[data-theme="dark"],
+:root.dark {
+  color-scheme: dark;
+
+  --background: #0F161D;
+  --surface: #161E27;
+  --surface-secondary: #1C252F;
+
+  --text-primary: #F2F0EC;
+  --text-secondary: #C7CDD3;
+  --text-tertiary: #9AA5AF;
+  --text-muted: #76828D;
+
+  --border: #2C3844;
+  --border-subtle: #212B35;
+
+  --primary: #F2AA4C;
+  --primary-hover: #F7C979;
+  --primary-active: #E9952E;
+  --primary-soft: #2E2410;
+
+  --success: #34D399;
+  --success-bg: #0F2A20;
+  --warning: #FBBF24;
+  --warning-bg: #2E2410;
+  --danger: #F87171;
+  --danger-bg: #2E1616;
+  --info: #7FB3E0;
+  --info-bg: #14232F;
+
+  --chart-primary: #F2AA4C;
+  --chart-secondary: #C7CDD3;
+  --chart-success: #34D399;
+  --chart-danger: #F87171;
+  --chart-info: #7FB3E0;
+  --chart-neutral: #5B6773;
+  --chart-grid: #24303B;
+
+  --scrollbar-thumb: #34424F;
+
+  --color-white: 22 30 39;
+
+  --color-orange-50: 46 36 20;
+  --color-orange-100: 58 46 24;
+
+  --color-paper-50: 20 27 34;
+  --color-paper-100: 23 31 39;
+  --color-paper-200: 27 36 45;
+  --color-paper-300: 15 22 29;
+  --color-paper-400: 31 41 51;
+  --color-paper-500: 37 48 60;
+  --color-paper-600: 44 57 70;
+  --color-paper-700: 58 74 89;
+  --color-paper-800: 82 99 115;
+
+  --color-slate-50: 24 31 39;
+  --color-slate-100: 30 39 48;
+  --color-slate-200: 42 53 64;
+  --color-slate-300: 71 84 97;
+  --color-slate-400: 156 170 189;
+  --color-slate-500: 165 178 195;
+  --color-slate-600: 186 196 210;
+  --color-slate-700: 205 213 224;
+  --color-slate-800: 226 231 238;
+  --color-slate-900: 240 243 247;
+  --color-slate-950: 248 250 252;
+
+  --color-emerald-50: 15 42 32;
+  --color-emerald-100: 18 51 36;
+  --color-emerald-500: 52 211 153;
+  --color-emerald-600: 94 234 168;
+  --color-emerald-700: 126 240 187;
+
+  --color-amber-50: 46 36 16;
+  --color-amber-100: 58 46 20;
+  --color-amber-300: 252 211 77;
+  --color-amber-500: 251 191 36;
+  --color-amber-600: 252 211 77;
+  --color-amber-700: 253 230 138;
+  --color-amber-800: 253 224 105;
+
+  --color-red-50: 46 22 22;
+  --color-red-100: 58 28 28;
+  --color-red-200: 90 40 40;
+  --color-red-300: 140 60 60;
+  --color-red-400: 220 90 90;
+  --color-red-500: 248 113 113;
+  --color-red-600: 251 132 132;
+  --color-red-700: 252 165 165;
+
+  --color-rose-50: 46 22 32;
+  --color-rose-100: 58 28 41;
+  --color-rose-500: 251 113 133;
+  --color-rose-600: 253 164 175;
+  --color-rose-700: 254 205 211;
+
+  --color-info-50: 20 35 47;
+  --color-info-400: 127 179 224;
+  --color-info-600: 156 197 234;
+  --color-info-700: 191 220 243;
 }
 
 html, body, #root {
@@ -57,11 +227,46 @@ body {
   font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
   background-color: var(--background);
   color: var(--text-primary);
+  transition: background-color 150ms ease-out, color 150ms ease-out;
 }
 
 * {
   scrollbar-width: thin;
-  scrollbar-color: #D5CEC2 transparent;
+  scrollbar-color: var(--scrollbar-thumb) transparent;
+}
+
+/* The printable receipt is always rendered on "paper" — it must stay in its
+   light-mode appearance regardless of the app's active theme (screen or
+   print). Re-declaring the tokens here overrides any inherited `.dark`
+   values for this subtree only, without touching ReceiptDocument's classes. */
+#receipt-print {
+  --background: #F7F5F1;
+  --text-primary: #101820;
+  color-scheme: light;
+  --color-white: 252 251 248;
+  --color-paper-50: 255 253 249;
+  --color-paper-100: 252 251 248;
+  --color-paper-200: 249 247 243;
+  --color-paper-300: 247 245 241;
+  --color-paper-400: 243 240 234;
+  --color-paper-500: 242 238 230;
+  --color-paper-600: 237 233 226;
+  --color-paper-700: 229 224 215;
+  --color-paper-800: 213 206 194;
+  --color-slate-50: 248 250 252;
+  --color-slate-100: 241 245 249;
+  --color-slate-200: 226 232 240;
+  --color-slate-300: 203 213 225;
+  --color-slate-400: 148 163 184;
+  --color-slate-500: 100 116 139;
+  --color-slate-600: 71 85 105;
+  --color-slate-700: 51 65 85;
+  --color-slate-800: 30 41 59;
+  --color-slate-900: 15 23 42;
+  --color-info-50: 237 245 252;
+  --color-info-400: 91 147 199;
+  --color-info-600: 57 120 184;
+  --color-info-700: 46 95 147;
 }
 
 @media print {

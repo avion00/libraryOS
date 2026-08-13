@@ -4,7 +4,8 @@ import { IndianRupee, ChartNoAxesCombined, ReceiptText } from "lucide-react";
 import { paymentsApi, membershipsApi } from "../../api/endpoints";
 import { api, extractErrorMessage } from "../../api/client";
 import { useToast } from "../../context/ToastContext";
-import { ErrorState, PageLoading } from "../ui";
+import { ErrorState } from "../ui";
+import { ReportsSkeleton } from "../skeletons/ReportsSkeleton";
 import { StudentStatCard } from "../students/StudentStatCard";
 import { METHOD_LABEL } from "../payments/types";
 import type { Payment, PaymentMethod } from "../../api/types";
@@ -138,11 +139,11 @@ export function CollectionsReport() {
       />
 
       {loading ? (
-        <PageLoading />
+        <ReportsSkeleton statCount={3} gridClassName="grid-cols-1 gap-3 sm:grid-cols-3" main="chart" />
       ) : failed ? (
         <ErrorState message="Unable to load the collections report." onRetry={() => { currentQuery.refetch(); previousQuery.refetch(); }} />
       ) : (
-        <>
+        <div className="contents animate-fadeIn">
           <div className="grid grid-cols-1 gap-3 sm:grid-cols-3">
             <StudentStatCard
               icon={IndianRupee}
@@ -162,8 +163,8 @@ export function CollectionsReport() {
             />
             <StudentStatCard
               icon={ChartNoAxesCombined}
-              iconBg="bg-paper-700"
-              iconColor="text-ink-700"
+              iconBg="bg-slate-100"
+              iconColor="text-slate-600"
               title="Average Payment"
               value={formatMoney(avgPayment)}
               footer={`${avgTrend.up ? "▲" : "▼"} ${Math.abs(avgTrend.pct).toFixed(1)}% vs last period`}
@@ -181,7 +182,7 @@ export function CollectionsReport() {
           </div>
 
           <CollectionsTable payments={recent} seatByMembership={seatByMembership} onOpenReceipt={setReceiptPayment} />
-        </>
+        </div>
       )}
 
       <ReceiptDialog open={!!receiptPayment} onClose={() => setReceiptPayment(null)} payment={receiptPayment} />

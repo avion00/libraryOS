@@ -36,7 +36,7 @@ export function SettingsSidebar({ section, onChange }: { section: SettingsSectio
               onClick={() => onChange(item.key)}
               aria-current={active ? "page" : undefined}
               className={`flex shrink-0 items-center gap-2.5 whitespace-nowrap rounded-lg px-3 py-2.5 text-[13.5px] font-medium transition-colors lg:w-full ${
-                active ? "bg-brand-50 text-brand-700" : "text-slate-600 hover:bg-paper-500"
+                active ? "bg-white text-brand-600 shadow-sm" : "text-slate-600 hover:bg-paper-500"
               }`}
             >
               <item.icon className={`h-[18px] w-[18px] shrink-0 ${active ? "text-brand-600" : "text-slate-400"}`} strokeWidth={2} />

@@ -24,7 +24,16 @@ export function CollectionTrend({ data }: { data: { label: string; amount: numbe
             <Tooltip
               formatter={(v) => [formatMoney(Number(v)), "Collected"]}
               labelFormatter={(l) => l}
-              contentStyle={{ borderRadius: 10, border: "1px solid #e2e8f0", fontSize: 11, boxShadow: "0 4px 14px rgba(15,23,42,0.08)" }}
+              contentStyle={{
+                borderRadius: 10,
+                border: "1px solid var(--border)",
+                backgroundColor: "var(--surface)",
+                color: "var(--text-primary)",
+                fontSize: 11,
+                boxShadow: "0 4px 14px rgba(15,23,42,0.08)",
+              }}
+              labelStyle={{ color: "var(--text-secondary)" }}
+              itemStyle={{ color: "var(--text-primary)" }}
             />
             <Area
               type="monotone"

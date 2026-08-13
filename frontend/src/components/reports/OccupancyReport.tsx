@@ -2,7 +2,8 @@ import { useMemo, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { Armchair, PieChart, Users } from "lucide-react";
 import { api } from "../../api/client";
-import { ErrorState, PageLoading } from "../ui";
+import { ErrorState } from "../ui";
+import { ReportsSkeleton } from "../skeletons/ReportsSkeleton";
 import { StudentStatCard } from "../students/StudentStatCard";
 import { ReportDonutCard, type DonutSegment } from "./charts/ReportDonutCard";
 import { OccupancyTable } from "./tables/OccupancyTable";
@@ -33,7 +34,7 @@ export function OccupancyReport() {
     return data.seat_wise.slice((page - 1) * pageSize, page * pageSize);
   }, [data, page]);
 
-  if (isLoading) return <PageLoading />;
+  if (isLoading) return <ReportsSkeleton statCount={4} gridClassName="grid-cols-2 gap-3 lg:grid-cols-4" main="table" />;
   if (error || !data) return <ErrorState message="Unable to load the occupancy report." onRetry={() => refetch()} />;
 
   const segments: DonutSegment[] = [
@@ -42,11 +43,11 @@ export function OccupancyReport() {
   ];
 
   return (
-    <div className="flex flex-col gap-4">
+    <div className="flex animate-fadeIn flex-col gap-4">
       <div className="grid grid-cols-2 gap-3 lg:grid-cols-4">
-        <StudentStatCard icon={Armchair} iconBg="bg-paper-700" iconColor="text-ink-700" title="Total Seats" value={String(data.total_seats)} footer="All configured seats" />
+        <StudentStatCard icon={Armchair} iconBg="bg-slate-100" iconColor="text-slate-600" title="Total Seats" value={String(data.total_seats)} footer="All configured seats" />
         <StudentStatCard icon={Users} iconBg="bg-emerald-100" iconColor="text-emerald-600" title="Occupied Seat-Shifts" value={String(data.occupied_seat_shifts)} footer="Currently assigned" />
-        <StudentStatCard icon={Armchair} iconBg="bg-paper-700" iconColor="text-ink-700" title="Available Seat-Shifts" value={String(data.available_seat_shifts)} footer="Ready to book" />
+        <StudentStatCard icon={Armchair} iconBg="bg-slate-100" iconColor="text-slate-600" title="Available Seat-Shifts" value={String(data.available_seat_shifts)} footer="Ready to book" />
         <StudentStatCard icon={PieChart} iconBg="bg-orange-100" iconColor="text-orange-600" title="Occupancy" value={`${data.occupancy_percentage}%`} footer="Of total capacity" />
       </div>
 

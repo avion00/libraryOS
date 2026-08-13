@@ -57,26 +57,26 @@ const DEFAULT_DURATION = 4000;
 const toastStyles = {
   success: {
     icon: Check,
-    iconBg: "bg-emerald-500",
-    iconColor: "text-white",
+    iconBg: "bg-[#10B981]",
+    iconColor: "text-[#fff]",
   },
 
   error: {
     icon: CircleAlert,
-    iconBg: "bg-red-500",
-    iconColor: "text-white",
+    iconBg: "bg-[#EF4444]",
+    iconColor: "text-[#fff]",
   },
 
   warning: {
     icon: TriangleAlert,
-    iconBg: "bg-amber-500",
-    iconColor: "text-white",
+    iconBg: "bg-[#F59E0B]",
+    iconColor: "text-[#fff]",
   },
 
   info: {
     icon: Info,
-    iconBg: "bg-blue-500",
-    iconColor: "text-white",
+    iconBg: "bg-[#3B82F6]",
+    iconColor: "text-[#fff]",
   },
 };
 

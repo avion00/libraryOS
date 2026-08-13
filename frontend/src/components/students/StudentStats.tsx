@@ -42,8 +42,8 @@ export function StudentStats({
     <div className="grid grid-cols-2 gap-3 lg:grid-cols-4">
       <StudentStatCard
         icon={Users}
-        iconBg="bg-paper-700"
-        iconColor="text-ink-700"
+        iconBg="bg-slate-100"
+        iconColor="text-slate-600"
         title="Total Students"
         value={String(totalStudents)}
         footer="Across all locations"
@@ -69,8 +69,8 @@ export function StudentStats({
       />
       <StudentStatCard
         icon={WalletCards}
-        iconBg="bg-paper-700"
-        iconColor="text-ink-700"
+        iconBg="bg-slate-100"
+        iconColor="text-slate-600"
         title="Pending Fees"
         value={formatMoney(pendingFeesTotal)}
         footer={`From ${pendingFeesStudents} students`}

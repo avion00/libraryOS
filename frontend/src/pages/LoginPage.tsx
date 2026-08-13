@@ -1,72 +1,89 @@
-import { useState, type FormEvent } from "react";
+import { useEffect, useState } from "react";
 import { Navigate, useLocation, useNavigate } from "react-router-dom";
+import { ChartNoAxesCombined, ShieldCheck, UsersRound } from "lucide-react";
 import { useAuth } from "../context/AuthContext";
+import { useTheme } from "../context/ThemeContext";
+import { useToast } from "../context/ToastContext";
 import { extractErrorMessage } from "../api/client";
-import { Button, Input, Label } from "../components/ui";
+import { AuthLayout, type AuthFeatureItem } from "../components/auth/AuthLayout";
+import { LoginForm } from "../components/auth/LoginForm";
+import { LoginSupport } from "../components/auth/LoginSupport";
+import { LogoLockup } from "../components/dashboard/art/Logo";
+
+const FEATURES: AuthFeatureItem[] = [
+  {
+    icon: ShieldCheck,
+    title: "Secure & Reliable",
+    description: "Your account and library data are protected by secure authentication.",
+  },
+  {
+    icon: UsersRound,
+    title: "Built for Libraries",
+    description: "Manage seats, students and payments with ease.",
+  },
+  {
+    icon: ChartNoAxesCombined,
+    title: "Insightful & Efficient",
+    description: "Powerful tools to help your library grow.",
+  },
+];
 
 export default function LoginPage() {
   const { user, login } = useAuth();
+  const { isDark } = useTheme();
+  const { notify } = useToast();
   const navigate = useNavigate();
   const location = useLocation();
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
-  const [error, setError] = useState<string | null>(null);
-  const [loading, setLoading] = useState(false);
+  const [apiError, setApiError] = useState<string | null>(null);
+
+  useEffect(() => {
+    document.title = "Sign in | LibraryOS";
+  }, []);
 
   if (user) {
     const redirectTo = (location.state as { from?: string } | null)?.from ?? "/";
     return <Navigate to={redirectTo} replace />;
   }
 
-  async function handleSubmit(e: FormEvent) {
-    e.preventDefault();
-    setError(null);
-    setLoading(true);
+  async function handleSubmit(username: string, password: string, remember: boolean) {
+    setApiError(null);
     try {
-      await login(username, password);
-      navigate("/", { replace: true });
+      await login(username, password, remember);
+      const redirectTo = (location.state as { from?: string } | null)?.from ?? "/";
+      navigate(redirectTo, { replace: true });
     } catch (err) {
-      setError(extractErrorMessage(err));
-    } finally {
-      setLoading(false);
+      setApiError(extractErrorMessage(err));
     }
   }
 
+  function handleForgotPassword() {
+    notify("Password resets aren't self-serve yet — please contact your library administrator.", "info");
+  }
+
+  function handleContactSupport() {
+    notify("Please reach out to your library administrator for help signing in.", "info");
+  }
+
   return (
-    <div className="flex min-h-screen items-center justify-center bg-paper-300 px-4">
-      <div className="w-full max-w-sm">
+    <AuthLayout features={FEATURES}>
+      <div className="w-full max-w-[500px] animate-fadeIn">
         <div className="mb-8 text-center">
-          <div className="mb-2 text-4xl">📚</div>
-          <h1 className="text-2xl font-semibold text-slate-900">LibraryOS</h1>
-          <p className="mt-1 text-sm text-slate-500">Sign in to manage seats, students & payments</p>
+          <div className="mb-4 flex justify-center">
+            <LogoLockup tone={isDark ? "light" : "dark"} markClassName="h-11 w-11" textClassName="text-[38px] font-bold tracking-tight" />
+          </div>
+          <p className="text-[15px] text-slate-500">Sign in to manage seats, students &amp; payments</p>
         </div>
-        <form onSubmit={handleSubmit} className="space-y-4 rounded-xl border border-paper-700 bg-white p-6 shadow-sm">
-          {error && <div className="rounded-lg bg-red-50 px-3 py-2 text-sm text-red-700">{error}</div>}
-          <div>
-            <Label>Username</Label>
-            <Input
-              autoFocus
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
-              required
-              autoComplete="username"
-            />
-          </div>
-          <div>
-            <Label>Password</Label>
-            <Input
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-              autoComplete="current-password"
-            />
-          </div>
-          <Button type="submit" className="w-full" disabled={loading}>
-            {loading ? "Signing in…" : "Sign in"}
-          </Button>
-        </form>
+
+        <div className="animate-scaleIn rounded-2xl border border-paper-700 bg-white p-7 shadow-[0_10px_30px_rgba(16,24,32,0.05)] sm:p-8">
+          <LoginForm onSubmit={handleSubmit} apiError={apiError} onForgotPassword={handleForgotPassword} />
+        </div>
+
+        <div className="mt-6">
+          <LoginSupport onContactSupport={handleContactSupport} />
+        </div>
+
+        <p className="mt-8 text-center text-[12.5px] text-slate-400">© {new Date().getFullYear()} LibraryOS. All rights reserved.</p>
       </div>
-    </div>
+    </AuthLayout>
   );
 }

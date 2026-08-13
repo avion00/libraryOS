@@ -21,8 +21,8 @@ const PLANS = [
     students: 10,
     fee: 2000,
     bg: "bg-paper-500",
-    iconBg: "bg-paper-700",
-    iconColor: "text-ink-700",
+    iconBg: "bg-slate-100",
+    iconColor: "text-slate-600",
   },
 ];
 

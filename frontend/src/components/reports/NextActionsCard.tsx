@@ -28,7 +28,7 @@ export function NextActionsCard({ expiringSoonCount, onExport }: { expiringSoonC
 
         <Link to="/students" className="flex w-full items-center gap-3 rounded-lg px-1.5 py-2.5 text-left transition-colors hover:bg-paper-300">
           <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-[10px] bg-paper-700">
-            <Send className="h-[17px] w-[17px] text-ink-700" strokeWidth={2.1} />
+            <Send className="h-[17px] w-[17px] text-slate-600" strokeWidth={2.1} />
           </span>
           <span className="min-w-0 flex-1">
             <span className="block text-[12.5px] font-semibold text-slate-800">Review memberships</span>

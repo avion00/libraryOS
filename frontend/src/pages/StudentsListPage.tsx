@@ -4,7 +4,8 @@ import { reportsApi, studentsApi } from "../api/endpoints";
 import { api, extractErrorMessage } from "../api/client";
 import { useDebounce } from "../lib/useDebounce";
 import { daysUntil } from "../lib/format";
-import { ConfirmDialog, ErrorState, PageLoading } from "../components/ui";
+import { ConfirmDialog, ErrorState } from "../components/ui";
+import { StudentsListSkeleton, StudentsTableSkeleton } from "../components/skeletons/StudentsListSkeleton";
 import { useToast } from "../context/ToastContext";
 import StudentFormModal from "../components/StudentFormModal";
 import { StudentsHeader } from "../components/students/StudentsHeader";
@@ -214,7 +215,7 @@ export default function StudentsListPage() {
       <StudentsHeader onAddStudent={() => setAddOpen(true)} />
 
       {summaryReady ? (
-        <div className="flex flex-col gap-4 lg:flex-row lg:items-start">
+        <div className="flex animate-fadeIn flex-col gap-4 lg:flex-row lg:items-start">
           <div className="min-w-0 flex-1">
             <StudentStats
               totalStudents={reportSummaryQuery.data!.total_students}
@@ -248,7 +249,7 @@ export default function StudentsListPage() {
               />
 
               {searchStudentsQuery.isLoading ? (
-                <PageLoading />
+                <StudentsTableSkeleton />
               ) : searchStudentsQuery.error ? (
                 <ErrorState message="Could not load students." onRetry={() => searchStudentsQuery.refetch()} />
               ) : (
@@ -288,7 +289,7 @@ export default function StudentsListPage() {
       ) : reportSummaryQuery.error || pendingFeesQuery.error ? (
         <ErrorState message="Could not load student data." onRetry={() => reportSummaryQuery.refetch()} />
       ) : (
-        <PageLoading />
+        <StudentsListSkeleton />
       )}
 
       <StudentFormModal

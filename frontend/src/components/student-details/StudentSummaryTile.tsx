@@ -15,7 +15,7 @@ export function StudentSummaryTile({
     <div className="flex items-center gap-2.5 rounded-lg border border-paper-700 bg-paper-300/60 px-3 py-2.5">
       <span
         className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-[8px] ${
-          accent === "orange" ? "bg-orange-100 text-orange-700" : "bg-paper-700 text-ink-700"
+          accent === "orange" ? "bg-orange-100 text-orange-700" : "bg-slate-100 text-slate-600"
         }`}
       >
         <Icon className="h-4 w-4" strokeWidth={2.1} />

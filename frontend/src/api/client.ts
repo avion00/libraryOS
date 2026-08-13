@@ -3,17 +3,31 @@ import axios, { AxiosError, type InternalAxiosRequestConfig } from "axios";
 const ACCESS_KEY = "libraryos_access";
 const REFRESH_KEY = "libraryos_refresh";
 
+// "Remember me" decides which storage backs the session: localStorage
+// persists across browser restarts, sessionStorage clears when the tab/
+// browser closes. Whichever one holds the refresh token is treated as the
+// active store, so a plain page reload keeps working either way.
+function activeStore(): Storage {
+  return localStorage.getItem(REFRESH_KEY) !== null ? localStorage : sessionStorage;
+}
+
 export const tokenStore = {
-  getAccess: () => localStorage.getItem(ACCESS_KEY),
-  getRefresh: () => localStorage.getItem(REFRESH_KEY),
-  set: (access: string, refresh: string) => {
-    localStorage.setItem(ACCESS_KEY, access);
-    localStorage.setItem(REFRESH_KEY, refresh);
+  getAccess: () => localStorage.getItem(ACCESS_KEY) ?? sessionStorage.getItem(ACCESS_KEY),
+  getRefresh: () => localStorage.getItem(REFRESH_KEY) ?? sessionStorage.getItem(REFRESH_KEY),
+  set: (access: string, refresh: string, remember = true) => {
+    const store = remember ? localStorage : sessionStorage;
+    const other = remember ? sessionStorage : localStorage;
+    other.removeItem(ACCESS_KEY);
+    other.removeItem(REFRESH_KEY);
+    store.setItem(ACCESS_KEY, access);
+    store.setItem(REFRESH_KEY, refresh);
   },
-  setAccess: (access: string) => localStorage.setItem(ACCESS_KEY, access),
+  setAccess: (access: string) => activeStore().setItem(ACCESS_KEY, access),
   clear: () => {
     localStorage.removeItem(ACCESS_KEY);
     localStorage.removeItem(REFRESH_KEY);
+    sessionStorage.removeItem(ACCESS_KEY);
+    sessionStorage.removeItem(REFRESH_KEY);
   },
 };
 
@@ -44,7 +58,12 @@ api.interceptors.response.use(
   (response) => response,
   async (error: AxiosError) => {
     const originalRequest = error.config as InternalAxiosRequestConfig & { _retry?: boolean };
-    if (error.response?.status === 401 && originalRequest && !originalRequest._retry) {
+    // A 401 from the login endpoint itself just means "wrong credentials" —
+    // there's no session to refresh, so let it reject normally instead of
+    // running the refresh-or-redirect flow (which would hard-reload the page
+    // and wipe whatever the user just typed).
+    const isLoginRequest = originalRequest?.url?.includes("/auth/login");
+    if (error.response?.status === 401 && originalRequest && !originalRequest._retry && !isLoginRequest) {
       originalRequest._retry = true;
       try {
         if (!refreshPromise) {
